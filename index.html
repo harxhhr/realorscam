@@ -1,0 +1,872 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#121521">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#07090E">
+<title>Real or Scam?</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Spot fake online stores before you pay. A short security awareness journey: quiz, lesson, checklist, quiz.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&family=Assistant:wght@400;600;700&family=Archivo+Black&family=DM+Serif+Display&display=swap">
+<style>
+/* World: a parcel's order-tracking page. The journey is tracked like a delivery; parcel-tape yellow marks where you are. */
+:root{
+  --ground:#EDF0F5; --paper:#FFFFFF; --paper-2:#F5F7FA; --ink:#121521; --ink-2:#3C4256; --rule:#CBD1DC;
+  --band:#121521; --band-ink:#FFFFFF; --band-2:#B9C0CF;
+  --tape:#FFC531; --tape-ink:#2A2000;
+  --real:#1D4ED8; --real-soft:#E2EAFD; --real-deep:#18306F;
+  --scam:#C2410C; --scam-soft:#FCE6DB; --scam-deep:#6E270A;
+  --btn:#121521; --btn-ink:#FFFFFF; --off:#D3D8E1; --off-ink:#4A5065;
+  --ease-out:cubic-bezier(0.23,1,0.32,1);
+  --sans:"Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ground:#0F121A; --paper:#181C27; --paper-2:#1F2431; --ink:#EEF1F7; --ink-2:#B0B7C8; --rule:#323949;
+  --band:#07090E; --band-ink:#FFFFFF; --band-2:#9AA2B4;
+  --tape:#FFC531; --tape-ink:#2A2000;
+  --real:#86A8FF; --real-soft:#1B2A52; --real-deep:#D4E0FF;
+  --scam:#FF9461; --scam-soft:#3F2216; --scam-deep:#FFD9C6;
+  --btn:#EEF1F7; --btn-ink:#121521; --off:#2B3140; --off-ink:#A3AABB; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --ground:#0F121A; --paper:#181C27; --paper-2:#1F2431; --ink:#EEF1F7; --ink-2:#B0B7C8; --rule:#323949;
+  --band:#07090E; --band-ink:#FFFFFF; --band-2:#9AA2B4;
+  --tape:#FFC531; --tape-ink:#2A2000;
+  --real:#86A8FF; --real-soft:#1B2A52; --real-deep:#D4E0FF;
+  --scam:#FF9461; --scam-soft:#3F2216; --scam-deep:#FFD9C6;
+  --btn:#EEF1F7; --btn-ink:#121521; --off:#2B3140; --off-ink:#A3AABB; color-scheme:dark}
+
+html{-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%;scrollbar-color:var(--rule) transparent}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;caret-color:var(--real)}
+::selection{background:var(--tape);color:var(--tape-ink)}
+button,a,label{touch-action:manipulation}
+button{font-family:inherit;user-select:none;-webkit-user-select:none;cursor:pointer}
+a{color:var(--real);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--real);outline-offset:2px}
+h1,h2,h3{margin:0;text-wrap:balance;letter-spacing:-0.025em;line-height:1.08}
+h1{font-size:clamp(34px,7.4vw,60px);font-weight:900}
+h2{font-size:clamp(24px,4.6vw,34px);font-weight:800}
+h3{font-size:20px;font-weight:800;letter-spacing:-0.01em}
+p{margin:0}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+
+.band{background:var(--band);color:var(--band-ink)}
+.band .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:58px;flex-wrap:wrap;padding-block:8px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:19px;letter-spacing:-0.02em;color:inherit;background:none;border:0;padding:0}
+.brand .tape{width:12px;height:22px;background:var(--tape);border-radius:2px;transform:skewX(-14deg)}
+.band small{font-size:13px;color:var(--band-2)}
+main{padding-block:28px 64px}
+.stack{display:flex;flex-direction:column;gap:28px}
+
+/* Buttons */
+.cta{min-height:54px;border:0;border-radius:12px;font-size:16px;font-weight:700;background:var(--btn);color:var(--btn-ink);padding:0 22px;display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;transition:transform 160ms var(--ease-out), background-color 160ms ease}
+.cta.tape{background:var(--tape);color:var(--tape-ink)}
+.cta.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--rule)}
+.cta:disabled{background:var(--off);color:var(--off-ink);cursor:not-allowed;box-shadow:none}
+.cta:active:not(:disabled),.opt:active{transform:scale(0.97)}
+@media (hover:hover) and (pointer:fine){.cta.ghost:hover{box-shadow:inset 0 0 0 1.5px var(--ink-2)} .opt:hover{border-color:var(--ink-2)}}
+.opt{min-height:52px;border-radius:12px;font-size:15px;font-weight:600;background:var(--paper);color:var(--ink);border:2px solid var(--rule);padding:6px 12px;transition:transform 160ms var(--ease-out), background-color 160ms ease, border-color 160ms ease, color 160ms ease}
+.opt.big{min-height:64px;font-size:18px;font-weight:800}
+.opt[aria-pressed="true"]{background:var(--btn);border-color:var(--btn);color:var(--btn-ink)}
+.opt.real[aria-pressed="true"]{background:var(--real);border-color:var(--real);color:#fff}
+.opt.scam[aria-pressed="true"]{background:var(--scam);border-color:var(--scam);color:#fff}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.muted{color:var(--ink-2)}
+.small{font-size:14px}
+input[type=text]{width:100%;box-sizing:border-box;min-height:50px;border-radius:12px;border:1.5px solid var(--rule);background:var(--paper-2);color:var(--ink);padding:0 14px;font:600 16px var(--mono);letter-spacing:.04em}
+.consent{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--ink-2);cursor:pointer}
+.consent input{width:22px;height:22px;margin:0;flex:none;accent-color:var(--real)}
+
+/* Home */
+.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:40px;align-items:start}
+.hero-copy{display:flex;flex-direction:column;gap:18px;max-width:640px}
+.lede{font-size:18px;color:var(--ink-2);max-width:60ch}
+.signup{background:var(--paper);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:14px;box-shadow:0 1px 2px rgba(18,21,33,.06), 0 12px 32px -18px rgba(18,21,33,.25)}
+.signup .who{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;background:var(--paper-2);border-radius:12px;font-size:14px}
+.signup .who b{font-family:var(--mono);letter-spacing:.04em}
+.linkbtn{background:none;border:0;color:var(--real);font-weight:600;font-size:14px;padding:6px;text-decoration:underline;text-underline-offset:3px}
+
+.track{background:var(--paper);border-radius:18px;padding:24px 24px 26px;display:flex;flex-direction:column;gap:22px}
+.track-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.track-head .id{font-family:var(--mono);font-size:13px;color:var(--ink-2)}
+.stops{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));position:relative}
+.stops::before{content:"";position:absolute;left:12.5%;right:12.5%;top:13px;height:4px;background:var(--rule);border-radius:4px}
+.stops .fill{position:absolute;left:12.5%;top:13px;height:4px;background:var(--ink);border-radius:4px;width:calc(75% * var(--p, 0));transform-origin:left;animation:grow 900ms var(--ease-out) both}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.stop{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:0 6px}
+.dot{width:30px;height:30px;border-radius:50%;background:var(--paper);box-shadow:inset 0 0 0 3px var(--rule);display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
+.stop.done .dot{background:var(--ink);box-shadow:none}
+.stop.next .dot{background:var(--tape);box-shadow:0 0 0 5px color-mix(in srgb, var(--tape) 35%, transparent)}
+.stop > div{display:flex;flex-direction:column;gap:2px}
+.stop b{font-size:15px;line-height:1.25}
+.stop span{font-size:13px;color:var(--ink-2)}
+.stop.next span{color:var(--ink);font-weight:600}
+
+.score-block{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:28px;align-items:center;background:var(--paper);border-radius:18px;padding:24px}
+.score-num{display:flex;align-items:baseline;gap:6px;font-variant-numeric:tabular-nums}
+.score-num b{font-size:clamp(56px,9vw,84px);font-weight:900;letter-spacing:-0.05em;line-height:.9}
+.score-num span{font-size:20px;font-weight:700;color:var(--ink-2)}
+.meter{display:flex;flex-direction:column;gap:10px}
+.meter-bar{position:relative;height:14px;border-radius:8px;display:grid;grid-template-columns:50fr 33fr 17fr;gap:3px}
+.meter-bar i{display:block;border-radius:4px}
+.meter-bar i:nth-child(1){background:color-mix(in srgb, var(--scam) 55%, var(--paper))}
+.meter-bar i:nth-child(2){background:color-mix(in srgb, var(--tape) 80%, var(--paper))}
+.meter-bar i:nth-child(3){background:color-mix(in srgb, var(--real) 60%, var(--paper))}
+.pin{position:absolute;top:-7px;width:4px;height:28px;background:var(--ink);border-radius:2px;transform:translateX(-50%);box-shadow:0 0 0 2px var(--paper)}
+.meter-labels{display:grid;grid-template-columns:50fr 33fr 17fr;font-size:13px;color:var(--ink-2)}
+.meter-labels span:last-child{text-align:right}
+.delta{font-weight:700}
+
+.two-col{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
+.objectives{display:flex;flex-direction:column;gap:14px}
+.objectives ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.objectives li{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-top:1px solid var(--rule)}
+.objectives li:last-child{border-bottom:1px solid var(--rule)}
+.objectives svg{flex:none;margin-top:3px}
+.challenge{background:var(--band);color:var(--band-ink);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:14px}
+.challenge p{color:var(--band-2)}
+.links{display:flex;flex-direction:column;gap:8px}
+.links button{min-height:52px;border-radius:12px;background:#1E2333;color:#fff;border:1.5px solid #353C52;font:600 15px var(--mono);text-align:left;padding:0 16px;display:flex;align-items:center;gap:10px;transition:transform 160ms var(--ease-out), border-color 160ms ease}
+.links button:active{transform:scale(0.98)}
+.links button.right{border-color:#86A8FF;background:#1B2A52}
+.links button.wrong{border-color:#FF9461;background:#3F2216}
+.feedback{font-size:15px;color:#fff;background:#1E2333;border-radius:12px;padding:12px 14px}
+.feedback b{color:var(--tape)}
+
+/* Quiz */
+.prog{display:flex;flex-direction:column;gap:10px}
+.prog-row{display:flex;justify-content:space-between;gap:12px;font-size:14px;font-weight:700;color:var(--ink-2)}
+.bar{height:6px;background:var(--off);border-radius:999px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ink);border-radius:999px;transform-origin:left;transition:transform 300ms var(--ease-out)}
+.layout{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start}
+.phone-col{flex:1 1 320px;max-width:392px;min-width:0;margin:0 auto;display:flex;flex-direction:column;gap:8px;align-items:center}
+.phone{width:100%;box-sizing:border-box;border:10px solid #0B0D14;border-radius:44px;background:#0B0D14;overflow:hidden;box-shadow:0 24px 48px -12px rgba(11,13,20,.35)}
+.screen{height:min(720px, 74svh);overflow-y:auto;overscroll-behavior:contain;background:#fff;border-radius:34px;color:#000;caret-color:auto}
+.screen.short{height:min(600px, 64svh)}
+.phone-col .small{text-align:center}
+.side{flex:1 1 360px;min-width:0;background:var(--paper);border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:18px}
+.banner{border-radius:16px;padding:18px 20px;display:flex;flex-direction:column;gap:6px}
+.banner.real{background:var(--real-soft);color:var(--real-deep)}
+.banner.scam{background:var(--scam-soft);color:var(--scam-deep)}
+.banner b{font-size:23px;letter-spacing:-0.02em;line-height:1.15}
+.flags{display:flex;flex-direction:column;gap:10px}
+.flag{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--rule)}
+.flag:first-child{border-top:0;padding-top:0}
+.flag .n{width:24px;height:24px;border-radius:50%;color:#fff;font-size:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex:none;margin-top:1px}
+.n.real{background:var(--real)}.n.scam{background:var(--scam)}.n.tape{background:var(--tape);color:var(--tape-ink)}
+.flag b{display:block;font-size:16px;line-height:1.3}
+.flag .d{font-size:14.5px;color:var(--ink-2)}
+.enter{animation:rise 240ms var(--ease-out)}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* Interstitial + final */
+.center{max-width:680px;width:100%;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+.compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px;background:var(--rule);border-radius:18px;overflow:hidden}
+.compare > div{background:var(--paper);padding:20px;display:flex;flex-direction:column;gap:6px}
+.compare b{font-size:52px;font-weight:900;letter-spacing:-0.04em;line-height:1;font-variant-numeric:tabular-nums}
+.compare dl{margin:8px 0 0;display:grid;grid-template-columns:1fr auto;gap:6px 12px;font-size:14px;color:var(--ink-2)}
+.compare dd{margin:0;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;text-align:right}
+.code{white-space:pre-wrap;font-family:var(--mono);font-size:13.5px;background:var(--paper-2);border:1px dashed var(--rule);border-radius:10px;padding:12px;overflow-wrap:anywhere;user-select:all;-webkit-user-select:all}
+.panel{background:var(--paper);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:14px}
+.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1 1 180px}
+
+/* Lesson */
+.lesson-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.pips{display:flex;gap:6px}
+.pips i{width:28px;height:6px;border-radius:3px;background:var(--off)}
+.pips i.on{background:var(--ink)}
+.lesson{display:flex;flex-wrap:wrap;gap:36px;align-items:flex-start}
+.lesson .text{flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:18px}
+.takeaway{background:var(--tape);color:var(--tape-ink);border-radius:14px;padding:14px 16px;font-weight:600}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.steps li{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;padding:22px 0;border-top:1px solid var(--rule);align-items:center}
+.steps li:last-child{border-bottom:1px solid var(--rule)}
+.steps .how{display:flex;gap:14px;align-items:flex-start}
+.mini{background:#fff;color:#111;border-radius:14px;padding:14px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:13.5px;line-height:1.4;box-shadow:0 1px 2px rgba(0,0,0,.08), 0 10px 24px -14px rgba(0,0,0,.3);display:flex;flex-direction:column;gap:8px}
+.mini .r{display:flex;justify-content:space-between;gap:10px;border-top:1px solid #EEE;padding-top:8px}
+.mini .r:first-of-type{border-top:0;padding-top:0}
+.mini .hit{color:#B42318;font-weight:700}
+.mini .ok{color:#15803D;font-weight:700}
+.mini img{width:100%;height:110px;object-fit:cover;border-radius:10px}
+.mini .lens{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
+.mini .lens img{height:48px;border-radius:6px}
+
+/* Checklist */
+.checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.checks li{border-top:1px solid var(--rule)}
+.checks li:last-child{border-bottom:1px solid var(--rule)}
+.checks button{width:100%;background:none;border:0;color:var(--ink);text-align:left;display:flex;gap:16px;align-items:flex-start;padding:16px 4px;font:inherit}
+.box{width:28px;height:28px;border-radius:8px;box-shadow:inset 0 0 0 2px var(--rule);flex:none;display:flex;align-items:center;justify-content:center;transition:background-color 160ms ease, box-shadow 160ms ease}
+.checks button[aria-pressed="true"] .box{background:var(--ink);box-shadow:none}
+.checks button[aria-pressed="false"] .box svg{opacity:0}
+.checks b{display:block;font-size:17px}
+.checks span.d{color:var(--ink-2);font-size:15px}
+
+@media (max-width:860px){
+  .hero,.two-col,.score-block{grid-template-columns:1fr}
+  .steps li{grid-template-columns:1fr;gap:12px}
+}
+@media (max-width:560px){
+  .stops{grid-template-columns:1fr;gap:18px}
+  .stops::before{left:14px;right:auto;top:15px;bottom:15px;width:4px;height:auto}
+  .stops .fill{left:14px;top:15px;width:4px;height:calc((100% - 30px) * var(--p, 0));transform-origin:top;animation-name:growy}
+  @keyframes growy{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+  .stop{flex-direction:row;text-align:left;align-items:center;gap:14px;padding:0}
+  .stop > div{display:flex;flex-direction:column}
+  .phone{border-width:7px;border-radius:34px}.screen{border-radius:27px;height:min(620px, 62svh)}.screen.short{height:min(560px, 58svh)}
+  .side,.track,.score-block,.panel,.signup,.challenge{padding:18px}
+}
+@media (prefers-reduced-motion: reduce){
+  .enter,.stops .fill{animation:none}
+  .cta:active:not(:disabled),.opt:active{transform:none}
+}
+
+/* ---- phone screens: always a light, real-app look ---- */
+.screen{--mk:#C2410C;--mk-tint:rgba(194,65,12,.12)}
+.screen.is-real{--mk:#1D4ED8;--mk-tint:rgba(29,78,216,.12)}
+.f{display:flex;align-items:flex-start;gap:6px;border-radius:8px;transition:background-color 200ms ease, box-shadow 200ms ease}
+.f.is-marked{box-shadow:0 0 0 2.5px var(--mk);background-color:var(--mk-tint)}
+.badge{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--mk);color:#fff;font:700 11px/1 var(--sans);flex:none;margin-top:1px}
+.ig,.dm,.upi{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:14px;line-height:18px;color:#000;background:#fff}
+.ig-top{height:48px;display:flex;align-items:center;gap:14px;padding:6px 14px 0;position:sticky;top:0;background:#fff;z-index:2}
+.ig-top b{font-size:17px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ig-head{display:flex;align-items:center;gap:18px;padding:10px 16px 0}
+.ring{width:88px;height:88px;border-radius:50%;padding:3px;box-sizing:border-box;background:linear-gradient(45deg,#FEDA75,#FA7E1E,#D62976,#962FBF,#4F5BD5);flex:none}
+.ring img{width:100%;height:100%;border-radius:50%;border:3px solid #fff;box-sizing:border-box;object-fit:cover;display:block;background:#eee}
+.ig-stats{flex:1;min-width:0;padding:4px}
+.ig-stats .g{flex:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
+.ig-stats .g div{display:flex;flex-direction:column}.ig-stats .g b{font-size:16px}.ig-stats .g span{font-size:13px}
+.ig-bio{padding:10px 16px 0;display:flex;flex-direction:column;gap:1px}
+.ig-bio .f{padding:1px 4px;margin-left:-4px}
+.grey{color:#737373}.lnk{color:#00376B;font-weight:600}
+.ig-btns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 34px;gap:6px;padding:14px 16px 0}
+.ig-btns div{height:34px;border-radius:8px;background:#EFEFEF;font-weight:600;display:flex;align-items:center;justify-content:center}
+.ig-btns .follow{background:#0095F6;color:#fff}
+.ig-hl{display:flex;gap:14px;padding:16px 12px 4px;margin:0 4px;overflow-x:auto;align-items:center}
+.ig-hl .h{display:flex;flex-direction:column;align-items:center;gap:6px;flex:none;width:66px;font-size:12px;text-align:center}
+.ig-hl .c{width:64px;height:64px;border-radius:50%;border:1px solid #DBDBDB;padding:3px;box-sizing:border-box}
+.ig-hl img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
+.ig-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid #DBDBDB;margin-top:8px}
+.ig-tabs div{height:44px;display:flex;align-items:center;justify-content:center}.ig-tabs .on{border-bottom:1.5px solid #000}
+.ig-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px}
+.ig-grid img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;background:#eee}
+.about{margin:16px 12px 4px;border:1px solid #DBDBDB;border-radius:14px;padding:14px 12px;display:flex;flex-direction:column;gap:10px}
+.about>b{text-align:center;font-size:15px}
+.about .f{padding:3px 4px;align-items:center;gap:10px}
+.about .f svg{flex:none}
+.about .t{display:flex;flex-direction:column;flex:1}
+.post{margin-top:12px;border-top:1px solid #EFEFEF}
+.post-h{display:flex;align-items:center;gap:10px;padding:10px 12px}
+.post-h img{width:32px;height:32px;border-radius:50%;object-fit:cover}
+.post-h b{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.post-img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;background:#eee}
+.post-a{display:flex;gap:16px;padding:10px 12px 6px}
+.post-c{padding:0 12px 16px;display:flex;flex-direction:column;gap:4px}
+.post-c .f{padding:2px 4px;margin-left:-4px;color:#737373}
+.ig-nav{height:50px;border-top:1px solid #DBDBDB;display:flex;align-items:center;justify-content:space-around;position:sticky;bottom:0;background:#fff}
+.ig-nav .me{width:26px;height:26px;border-radius:50%;border:1.5px solid #000;box-sizing:border-box;background:#C7CCD6}
+.shop{font-family:"Assistant",-apple-system,"Segoe UI",sans-serif;font-size:15px;line-height:1.5;color:#121212;background:#fff}
+.chrome{background:#F1F3F4;padding:10px 12px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:2}
+.url{flex:1;min-width:0;background:#fff;border-radius:999px;height:36px;padding:0 14px;align-items:center !important;font-family:-apple-system,"Segoe UI",Roboto,sans-serif;font-size:14px;color:#202124}
+.url .u{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.tabs-ic{width:22px;height:22px;border:2px solid #5F6368;border-radius:5px;box-sizing:border-box;font:700 11px/18px -apple-system,sans-serif;color:#5F6368;text-align:center;flex:none}
+.whois{padding:8px 14px;background:#FFF8DB;color:#4A3B00;font-size:13px;font-family:-apple-system,"Segoe UI",sans-serif;border-radius:0}
+.ann{padding:10px 16px;text-align:center;font-size:12px;letter-spacing:.08em;text-transform:uppercase;background:#F3F3F3}
+.ann.dark{background:#121212;color:#fff;font-weight:700}
+.shop-h{height:60px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #E6E6E6}
+.logo-serif{font-family:"DM Serif Display",Georgia,serif;font-size:20px}
+.logo-block{font-family:"Archivo Black",Impact,sans-serif;font-size:19px;letter-spacing:.04em}
+.timer{padding:10px 16px;background:#B91C1C;color:#fff;font-weight:700;justify-content:center;border-radius:0;align-items:center}
+.timer .badge{border:1.5px solid #fff}
+.timer.is-marked{background-color:#B91C1C;box-shadow:inset 0 0 0 3px var(--mk), inset 0 0 0 5px #fff}
+.pimg{position:relative;aspect-ratio:1;overflow:hidden;background:#eee}
+.pimg img{width:100%;height:100%;object-fit:cover;display:block}
+.pimg .sale{position:absolute;top:12px;left:12px;background:#121212;color:#fff;border-radius:40px;padding:3px 12px;font-size:12px;letter-spacing:.05em}
+.thumbs{display:flex;gap:8px;padding:10px 16px 0}
+.thumbs img{width:54px;height:54px;object-fit:cover;opacity:.7}
+.thumbs img:first-child{opacity:1;outline:1.5px solid #121212;outline-offset:-1.5px}
+.pinfo{padding:16px;display:flex;flex-direction:column;gap:14px}
+.vendor{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#4D4D4D}
+.pinfo h3{margin:-8px 0 0;font:600 27px/1.15 "Assistant",sans-serif;letter-spacing:.01em;overflow-wrap:anywhere}
+.price{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.price s{color:#4D4D4D;font-size:16px}.price b{font-size:19px}
+.pill{border:1px solid #121212;border-radius:40px;padding:1px 10px;font-size:12px}
+.off{color:#B42318;font-weight:700;padding:2px 4px;align-items:center}
+.tax{margin-top:-8px;font-size:13px;color:#4D4D4D}
+.stock{flex-direction:column;align-items:stretch;gap:6px;padding:4px;margin-left:-4px}
+.stock .t{color:#B91C1C;font-weight:700;font-size:14px;display:flex;align-items:center;gap:6px}
+.sbar{height:6px;background:#F3D4D4;border-radius:999px;overflow:hidden}.sbar i{display:block;width:9%;height:100%;background:#B91C1C}
+.view{display:flex;align-items:center;gap:6px;font-size:13px;color:#4D4D4D}
+.vals{display:flex;gap:8px;flex-wrap:wrap}.vals span{border:1px solid #121212;border-radius:40px;padding:7px 18px;font-size:14px}.vals span:first-child{background:#121212;color:#fff}
+.qty{width:140px;height:46px;border:1px solid #121212;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:center;text-align:center}
+.atc{height:46px;border:1px solid #121212;display:flex;align-items:center;justify-content:center;letter-spacing:.06em}
+.bin{height:46px;background:#121212;color:#fff;display:flex;align-items:center;justify-content:center;letter-spacing:.06em;margin-top:-6px}
+.pay{padding:6px;margin-left:-4px;font-size:13px;background:#F3F3F3}
+.acc{border-bottom:1px solid #E6E6E6}
+.acc>div{border-top:1px solid #E6E6E6;padding:14px 0;display:flex;flex-direction:column;gap:6px}
+.acc .hd{display:flex;justify-content:space-between;align-items:center}
+.acc .f{padding:2px 4px;margin-left:-4px;font-size:14px;color:#4D4D4D}
+.foot{background:#F3F3F3;padding:20px 16px;font-size:12px;color:#4D4D4D;display:flex;flex-direction:column;gap:4px}
+.small-f{padding:2px 4px;margin-left:-4px;font-size:14px}
+.dm{font-size:15px;line-height:20px;min-height:100%;display:flex;flex-direction:column}
+.dm-top{height:56px;padding:6px 12px 0;display:flex;align-items:center;gap:10px;border-bottom:1px solid #EFEFEF;position:sticky;top:0;background:#fff;z-index:2}
+.av{border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;flex:none}
+.dm-top .nm{display:flex;flex-direction:column;flex:1;min-width:0}
+.dm-top .nm b,.dm-top .nm span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dm-intro{display:flex;flex-direction:column;align-items:center;gap:4px;padding:22px 16px 8px;text-align:center}
+.dm-intro .vp{margin-top:8px;padding:6px 14px;border-radius:8px;background:#EFEFEF;font-weight:600;font-size:13px}
+.when{align-self:center;font-size:12px;color:#737373;padding:10px 0}
+.msgs{padding:0 12px 12px;display:flex;flex-direction:column;gap:6px;flex:1}
+.msg{display:flex}.msg.me{justify-content:flex-end}
+.bub{max-width:78%;padding:9px 14px;border-radius:22px;background:#EFEFEF;color:#000;overflow-wrap:anywhere}
+.msg.me .bub{background:#3797F0;color:#fff}
+.bub.is-marked{box-shadow:0 0 0 2.5px var(--mk);background-color:#FFF1EA}
+.screen.is-real .bub.is-marked{background-color:#E8EEFD}
+.shared{width:210px;border-radius:18px;overflow:hidden;background:#EFEFEF;display:flex;flex-direction:column}
+.shared img{width:210px;height:210px;object-fit:cover;display:block}
+.shared span{padding:8px 12px;font-size:13px;line-height:17px}
+.dm-input{margin:8px 10px 12px;height:44px;border-radius:22px;background:#EFEFEF;display:flex;align-items:center;gap:10px;padding:0 6px;position:sticky;bottom:12px}
+.dm-input .cam{width:34px;height:34px;border-radius:50%;background:#3797F0;display:flex;align-items:center;justify-content:center}
+.upi{min-height:100%;display:flex;flex-direction:column}
+.upi-top{display:flex;align-items:center;gap:10px;padding:16px 14px;border-bottom:1px solid #EEE;font-weight:700;font-size:16px}
+.upi-who{display:flex;flex-direction:column;align-items:center;gap:8px;padding:28px 16px 12px;text-align:center}
+.upi-who .f{padding:6px 10px;align-items:center;gap:8px;text-align:left}
+.upi-amt{margin:10px 16px;padding:16px;background:#F3F4F6;border-radius:14px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.upi-amt b{font-size:34px}
+.upi-note{margin:8px 16px;padding:12px;background:#FEF3C7;color:#78350F;border-radius:12px;font-size:14px}
+.upi-pay{margin:auto 16px 20px;height:48px;border-radius:24px;background:#111827;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+</style>
+
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<header class="band"><div class="wrap">
+  <button type="button" class="brand" data-a="home"><span class="tape" aria-hidden="true"></span>Real or Scam?</button>
+  <small>A security awareness project · all stores are fictional</small>
+</div></header>
+<main id="app" class="wrap" aria-live="polite"></main>
+
+<script>
+/* ===== Settings ===== */
+/* Paste your Google Apps Script web app URL (ends in /exec) to save results to your Sheet automatically. */
+const SHEET_URL = "https://script.google.com/macros/s/AKfycby0NanRAKe7F1ria0vQEKz5ad-GcgzKamx8BjTg8pNAElB7sqSFlSjFjit1LB-oD--_-w/exec";
+const STORE_KEY = "real-or-scam-v1";
+
+/* ===== Content ===== */
+const I = (n) => "img/" + n + ".jpg";
+const set = (k) => [1,2,3,4,5,6].map(i => I(k + "-" + i));
+const CARDS = [
+{ id:"P1", real:false, type:"insta", handle:"sneakervault.india.official", name:"Sneaker Vault India", cat:"Shoe store", av:I("sneakers-1"),
+  stats:{p:"9", f:"48.2K", g:"3", n:3}, bio:[["Original branded sneakers at 80% OFF",1],["Prepaid only · No COD · No returns",2],"DM to order · limited stock"],
+  link:"", hl:{list:["Proofs","New drops","Delivered"], img:[I("sneakers-3"),I("sneakers-2"),I("sneakers-5")], n:0},
+  joined:["October 2026",4], based:"India", former:["4 former usernames",4], tiles:set("sneakers"),
+  likes:"1,204 likes", caption:"Restock alert! Grab yours before they're gone. Prepaid only.", foot:["Commenting has been turned off.",5],
+  summary:"Big discount, prepaid only, a brand-new renamed account with bought-looking followers, and no way to read complaints.",
+  flags:[["Price too good to be true","Branded sneakers don't sell at 80% off. A huge discount on a popular brand is the bait."],["Prepaid only, no COD, no returns","Scam stores avoid cash on delivery because they never ship. No returns means no way back."],["48K followers, 9 posts","Followers far ahead of posts usually means bought followers to look established."],["New account, renamed 4 times","'About this account' shows it joined this month and has changed its name 4 times. Scam pages get renamed after each wave of complaints."],["Comments turned off","Turning comments off hides the people who paid and got nothing."]] },
+{ id:"P2", real:true, type:"web", url:["gharkitchenware.in",1], logo:"Ghar Kitchenware", serif:true, announce:"Free shipping on orders above ₹999", annDark:false, img:I("tawa"), product:"Pre-seasoned cast iron tawa, 10 inch",
+  price:"Rs. 1,149.00", mrp:"Rs. 1,450.00", off:["Save 21%",2], timer:"", stock:"", viewing:"", optLabel:"Size", opts:["10 inch","12 inch"],
+  rating:["★★★★☆ 4.3 · 318 reviews · 41 are 1–2 stars",3], pay:["UPI · Cards · Net banking · Cash on delivery",4],
+  rows:[["Shipping & returns","Ships in 2–4 days. 7-day returns on unused items.",4],["Contact us","Ghar Kitchenware LLP, Andheri East, Mumbai 400069 · GSTIN 27AAKFG4821M1Z3",5]], whois:"",
+  summary:"A believable price, honest mixed reviews, cash on delivery and registered business details.",
+  flags:[["Domain matches the brand","A plain brand-name .in domain, not a 'sale' or 'outlet' lookalike."],["Realistic discount","21% off is what normal sales look like."],["Mixed reviews","Real products collect some bad reviews. A few 1–2 star reviews are a good sign."],["You can pay on delivery and return","COD plus a return window means the seller carries the risk."],["Registered business details","A company name, street address and GSTIN you can look up."]] },
+{ id:"P3", real:false, type:"chat", handle:"lunaa.jewels", name:"Lunaa Jewels", meta:"lunaa.jewels · 12.4K followers · 11 posts", initials:"LJ", av:"#7C3AED",
+  msgs:[{me:true,post:I("hoops"),cap:"lunaa.jewels · Sterling silver hoops, handmade"},{me:true,t:"Hi, what's the price for these silver hoops?"},{t:"₹399 only today, 80% off. Pay to UPI rk.traders1987@okaxis and send a screenshot",n:1},{me:true,t:"Can I do cash on delivery?"},{t:"No COD sir, too many fake orders. Only 1 piece left, pay fast",n:2},{me:true,t:"Can you send a video of the actual piece?"},{t:"Same as post. Pay first, then we video call",n:3}],
+  summary:"Payment to someone else's personal UPI, pressure to pay fast, and no proof until you've paid.",
+  flags:[["UPI ID doesn't match the store","Money goes to a random personal ID. That's hard to trace and almost never refunded."],["Pressure and no COD","'Only 1 left, pay fast' is there to stop you from thinking it over."],["Refuses proof before payment","A real seller can send a video of the item in a minute. 'Pay first' is the tell."]] },
+{ id:"P4", real:true, type:"insta", handle:"kesar.candle.co", name:"Kesar Candle Co.", cat:"Home goods store", av:I("candles-3"),
+  stats:{p:"186", f:"3,412", g:"291", n:3}, bio:["Hand-poured soy candles · Mumbai",["Cash on delivery available · ships in 3–5 days",1],"GSTIN and return policy on our website"],
+  link:["kesarcandle.in",2], hl:{list:["Reviews","Packing","Your orders"], img:[I("candles-5"),I("candles-2"),I("candles-4")], n:4},
+  joined:["March 2022",3], based:"India", former:"", tiles:set("candles"),
+  likes:"312 likes", caption:"New batch of sandalwood and kesar candles is out. Ships Monday.", foot:["View all 48 comments",0],
+  summary:"Few followers and UPI payments are normal for a small business. Account age, post history and how you can pay tell you more.",
+  flags:[["Cash on delivery offered","A seller who lets you pay on delivery is taking the risk, not you."],["Own website with policies","A domain with GSTIN, address and a return policy is effort a throwaway scam rarely makes."],["Years of steady posting","186 posts since 2022, with followers in proportion and no name changes. The growth looks real."],["Real customer proof","Highlights of tagged reviews and packing videos are hard to fake at scale."]] },
+{ id:"P5", real:true, type:"chat", handle:"thread.and.bloom", name:"Thread & Bloom", meta:"thread.and.bloom · 2,140 followers · 264 posts", initials:"TB", av:"#0F766E",
+  msgs:[{me:true,t:"Hi! How much for a custom name hoop?"},{t:"₹850 + ₹80 shipping. I'll send a Razorpay link with an invoice, or you can pick COD for +₹50",n:1},{t:"Here's a video of last week's order being packed",n:2},{t:"It takes 6–8 days since each one is hand-stitched",n:3}],
+  summary:"A tracked payment link with an invoice, a COD option, proof shared without being asked, and an honest timeline.",
+  flags:[["Payment link with an invoice, or COD","Gateway payments leave a record you can dispute. COD removes the risk entirely."],["Proof shared without asking","Real sellers are happy to show their work."],["Honest, slow timeline","Handmade takes time. Promising realistic dates is a good sign."]] },
+{ id:"P6", real:false, type:"web", url:["urbanthreadz-sale.shop",1], logo:"URBANTHREADZ", serif:false, announce:"Mega clearance · extra 10% off on UPI · today only", annDark:true, img:I("hoodie"), product:"Heavyweight cotton hoodie",
+  price:"Rs. 299.00", mrp:"Rs. 2,999.00", off:["SAVE 90%",2], timer:["Sale ends in 00:04:59",3], stock:["Hurry! Only 2 left in stock",3], viewing:"23 people are viewing this right now", optLabel:"Size", opts:["S","M","L","XL"],
+  rating:["★★★★★ 4.9 · 12,840 reviews",4], pay:["Prepaid only (UPI / card). Cash on delivery unavailable",5],
+  rows:[["Returns","No returns or exchanges on sale items.",5],["Contact us","urbanthreadz.help@gmail.com",6]], whois:"",
+  summary:"A disposable domain, an impossible discount, a fake timer, perfect reviews and no business details.",
+  flags:[["Disposable 'sale' domain","Domains like '-sale.shop' are cheap and thrown away after a few weeks."],["90% off","No real store sells at a tenth of the price."],["Countdown and 'only 2 left'","Fake urgency stops you from checking anything else. These timers reset when you reload."],["Thousands of perfect reviews","12,840 reviews averaging 4.9 is a pattern of fake reviews."],["Prepaid only, no returns","Once you pay, there's no way to get the money back."],["Gmail and no address","No company name, address or GSTIN. Nobody to hold responsible."]] },
+
+{ id:"Q1", real:false, type:"web", url:["aura-watches-outlet.store",1], logo:"AURA", serif:false, announce:"Flash sale · 93% off · free gift with every order", annDark:true, img:I("smartwatch"), product:"Smartwatch Pro X, AMOLED display",
+  price:"Rs. 499.00", mrp:"Rs. 6,999.00", off:["SAVE 93%",2], timer:["Flash sale ends in 00:02:14",3], stock:["Only 4 left in stock",3], viewing:"41 people are viewing this right now", optLabel:"Strap", opts:["Black","Silver","Rose gold"],
+  rating:["★★★★★ 4.9 · 21,302 reviews",4], pay:["Prepaid only · add ₹49 for priority delivery",5],
+  rows:[["Refund policy","All sales are final.",5],["Customer care","WhatsApp only. No phone or email support.",6]], whois:["registered 6 days ago",1],
+  summary:"A days-old 'outlet' domain, a 93% discount, a timer, perfect reviews, no refunds and no real support.",
+  flags:[["New 'outlet' domain","A WHOIS lookup shows the site is 6 days old. Scam stores rarely live long."],["93% off","A ₹6,999 watch for ₹499 is the bait."],["Flash-sale timer and low stock","The timer usually resets every time you reload."],["Too many perfect reviews","Over 21,000 reviews on a site that's a week old isn't possible."],["Prepaid only, all sales final","No COD and no refunds means no way to get money back."],["WhatsApp-only support","No email, phone or address. Easy to block you after you pay."]] },
+{ id:"Q2", real:true, type:"insta", handle:"papercrane.studio", name:"Papercrane Studio", cat:"Stationery store · Pune", av:I("notebooks-2"),
+  stats:{p:"412", f:"1,208", g:"180", n:1}, bio:["Hand-illustrated notebooks and planners",["Order on our website · COD available",2]],
+  link:["papercrane.in",2], hl:{list:["Tagged","Reviews","Studio"], img:[I("notebooks-4"),I("notebooks-6"),I("notebooks-5")], n:3},
+  joined:["June 2020",1], based:"India", former:"", tiles:set("notebooks"),
+  likes:"856 likes", caption:"Our 2027 planners are here.", foot:["View all 112 comments · “Took 9 days to arrive but the paper is great”",4],
+  summary:"Small but steady for years, its own website with COD, lots of customer tags and honest comments left up.",
+  flags:[["Six years of posting","412 posts since 2020 with a modest following. Growth that looks earned."],["Own website and COD","You can check the business and pay on delivery."],["Tagged by customers","Highlights full of real buyers posting the product. Very hard to fake."],["Honest comments left visible","A slightly negative comment that wasn't deleted is a good sign."]] },
+{ id:"Q3", real:true, type:"web", url:["saffronloom.in",1], logo:"Saffron Loom", serif:true, announce:"Free shipping across India · COD available", annDark:false, img:I("saree"), product:"Chanderi handloom cotton saree",
+  price:"Rs. 2,350.00", mrp:"Rs. 2,600.00", off:["Save 10%",2], timer:"", stock:"", viewing:"", optLabel:"Colour", opts:["Mustard","Indigo","Ivory"],
+  rating:["★★★★☆ 4.1 · 87 reviews · “Lovely weave, delivery was slow”",3], pay:["UPI · Cards · Cash on delivery",4],
+  rows:[["Returns","10-day returns on unused items with tags.",4],["Contact us","Saffron Loom, Chanderi, Madhya Pradesh · support@saffronloom.in",5]], whois:["registered in 2019",1],
+  summary:"An older brand-name domain, a modest discount, honest reviews, COD and returns, and a real address.",
+  flags:[["Domain with history","Registered in 2019 under the brand's own name."],["Modest discount","10% off is a normal sale."],["Reviews include complaints","Mentions of slow delivery make the reviews believable."],["COD and returns","You can pay on delivery and send it back."],["Business address and own email","A town, a state and a support email on the brand's domain."]] },
+{ id:"Q4", real:false, type:"chat", handle:"styleberry.closet", name:"Styleberry Closet", meta:"styleberry.closet · 31.6K followers · 7 posts", initials:"SC", av:"#BE185D",
+  msgs:[{t:"Congrats! You won our giveaway, a free denim jacket!",n:1},{me:true,t:"I don't remember entering?"},{t:"You were auto-selected from our followers. Just pay ₹149 shipping to claim",n:2},{t:"Pay here: styleberry-claim.xyz/pay · offer expires in 30 min",n:3}],
+  summary:"A prize you never entered for, a fee to receive it, and a strange link with a deadline.",
+  flags:[["A prize you didn't enter for","'Auto-selected' giveaways are a classic opener."],["Pay to receive a prize","Real giveaways never ask winners to pay shipping or fees."],["Odd link and a deadline","A '-claim.xyz' payment page can steal your card or UPI details. The 30-minute limit is pressure."]] },
+{ id:"Q5", real:false, type:"insta", handle:"gadgetloot.offers", name:"Gadget Loot", cat:"Electronics", av:I("gadgets-2"),
+  stats:{p:"14", f:"102K", g:"0", n:3}, bio:[["Phones, earbuds and laptops at 70% OFF",1],["Customs-seized stock, 100% original",2],["Prepaid only · DM to order",4]],
+  link:"", hl:{list:["Proofs","Customs","Delivered"], img:[I("gadgets-4"),I("gadgets-5"),I("gadgets-3")], n:0},
+  joined:["September 2026",5], based:"India", former:["6 former usernames",5], tiles:set("gadgets"),
+  likes:"3,880 likes", caption:"Customs stock cleared! Only 40 pieces. DM now.", foot:["Comments on this post have been limited.",6],
+  summary:"A cover story for the low price, a new renamed account with 102K followers and 14 posts, prepaid only and comments hidden.",
+  flags:[["70% off electronics","Electronics margins are thin. Nobody legitimate sells at 30% of the price."],["'Customs-seized stock'","Customs auctions don't sell through Instagram DMs. It's a story to explain the price."],["102K followers, 14 posts","Bought followers to look trusted."],["Prepaid only, DM to order","No checkout, no COD, no record of the sale."],["New account, renamed 6 times","Joined last month and keeps changing its name."],["Comments limited","Complaints are hidden."]] },
+{ id:"Q6", real:true, type:"chat", handle:"crumb.and.co.bakes", name:"Crumb & Co Bakes", meta:"crumb.and.co.bakes · 4,870 followers · 530 posts", initials:"CB", av:"#92400E",
+  msgs:[{me:true,t:"Hi, can I order a 1 kg chocolate cake for Saturday?"},{t:"Yes! It's ₹1,200. 50% advance, the rest on delivery",n:1},{t:"Pay to our business UPI. You'll see the name 'Crumb and Co Bakes' before you pay",n:2},{t:"Our FSSAI registration number is in our bio and on the bill",n:3}],
+  summary:"A partial advance, a UPI name that matches the business, and a food registration you can check.",
+  flags:[["Half now, half on delivery","Asking for part of the money up front is normal for made-to-order items."],["UPI name matches the business","Your UPI app shows the receiver's name. Check it matches before paying."],["Registered food business","FSSAI registration can be looked up online."]] }
+];
+
+const LUXE = { id:"L1", real:false, type:"web", url:["luxekicks-outlet.shop",1], logo:"LUXEKICKS", serif:false, announce:"Clearance · extra 10% off on UPI · today only", annDark:true, img:I("shoes"), product:"Premium running shoes",
+  price:"Rs. 599.00", mrp:"Rs. 7,999.00", off:["SAVE 92%",2], timer:["Sale ends in 00:03:12",3], stock:["Hurry! Only 2 left in stock",3], viewing:"19 people are viewing this right now", optLabel:"Size (UK)", opts:["7","8","9","10"],
+  rating:["★★★★★ 4.9 · 18,402 reviews",4], pay:["Prepaid only · Cash on delivery unavailable",5],
+  rows:[["Returns","No returns or exchanges on sale items.",5],["Contact us","help.luxekicks@gmail.com",6]], whois:"" };
+
+const LESSONS = [
+  { title:"Anatomy of a fake store", intro:"Most fake stores are built from the same template. Once you know the six parts, you'll see them everywhere.", phone:() => web(LUXE), real:false,
+    points:[["Lookalike domain","'-outlet', '-sale', '.shop' or '.store', and usually only days old."],["Impossible discount","80–95% off branded goods. That price is the bait."],["Fake urgency","Countdown timers that reset on reload, and 'only 2 left'."],["Too-perfect reviews","Thousands of 5-star reviews and no complaints at all."],["Prepaid only","No cash on delivery and no returns."],["No business details","A Gmail address and no company name, address or GSTIN."]],
+    take:"Two or more of these together: close the tab." },
+  { title:"Small doesn't mean shady", intro:"Real small businesses also have few followers and take UPI. Look at their history and how they let you pay.", phone:() => insta(CARDS[3]), real:true,
+    points:CARDS[3].flags, take:"Low followers or UPI payments alone don't make a store fake." },
+  { title:"Spotting a scam DM", intro:"Many scams never use a website. They happen entirely in Instagram DMs, where there's no checkout and no record.", phone:() => chat(CARDS[2]), real:false,
+    points:CARDS[2].flags.concat([["Paying to claim a prize","Real giveaways never ask winners for a 'shipping fee'. Unknown claim links can steal your card or UPI details."]]),
+    take:"Never pay a personal UPI ID because a DM says so." },
+  { title:"Check any store in 2 minutes", intro:"Four free checks, all from your phone. Do them before you pay anyone you haven't bought from before.", steps:true,
+    take:"If a check fails, don't pay." },
+  { title:"Read the name before you pay", intro:"Your UPI app shows who will actually receive the money. This is the last chance to stop a scam.", phone:() => upi(), real:false,
+    points:[["Banking name doesn't match","You were chatting with 'Lunaa Jewels', but the money goes to a person's name. Stop here."],["A personal UPI ID","Stores use business accounts or payment links with an invoice. Prefer those, or cash on delivery."]],
+    take:"Scammed? Report at cybercrime.gov.in or call 1930 right away." }
+];
+
+const CHECKS = [
+  ["Check the account's age","Profile → ⋯ → About this account. New or renamed accounts are a warning."],
+  ["Compare the price","Far below every other store? Walk away."],
+  ["Reverse-search the photos","Google Lens shows if the photos are copied from other sellers."],
+  ["Read the bad reviews and comments","No complaints at all, or comments turned off, is a warning."],
+  ["Look up the website","Domain age, a GSTIN and a real address."],
+  ["Read the UPI banking name","It should match the store you're buying from."],
+  ["Prefer COD or a payment link","Avoid paying personal UPI IDs."]
+];
+
+const TYPE = {
+  insta:{ q:"Is this a real business account, or a scam profile?", real:"Real account", scam:"Scam profile", vr:"This is a real business account", vs:"This profile is a scam" },
+  web:{ q:"Does this look like a real store page to you?", real:"Looks real", scam:"Looks fake", vr:"This is a real store page", vs:"This store page is fake" },
+  chat:{ q:"Is this a genuine seller, or a scammer?", real:"Genuine seller", scam:"Scammer", vr:"This is a genuine seller", vs:"This seller is a scammer" }
+};
+
+/* ===== State ===== */
+const load = () => { try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; } catch (e) { return {}; } };
+const persist = () => { try { localStorage.setItem(STORE_KEY, JSON.stringify(P)); } catch (e) {} };
+const fresh = () => ({ session: (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(36).slice(2), code:"", consent:false, pre:null, lesson:false, checklist:false, checks:[], post:null });
+let P = Object.assign(fresh(), load());
+let view = "home", lessonIdx = 0, quick = null;
+const Q = { round:"pre", i:0, choice:null, sure:null, revealed:false, ans:[] };
+let MARKS = false;
+
+const app = document.getElementById("app");
+const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const T = (v) => Array.isArray(v) ? v : [v || "", 0];
+const deck = () => Q.round === "pre" ? CARDS.slice(0, 6) : CARDS.slice(6);
+const card = () => deck()[Q.i];
+const pct = (r) => r ? Math.round(r.score / r.total * 100) : null;
+const nextStep = () => !P.pre ? "pre" : !P.lesson ? "lesson" : !P.checklist ? "checklist" : !P.post ? "post" : "done";
+const toTop = () => window.scrollTo(0, 0);
+
+/* ===== Icons ===== */
+const ic = {
+  back:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>',
+  bell:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>',
+  dots:'<svg width="22" height="22" viewBox="0 0 24 24" fill="#000" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>',
+  link:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00376B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>',
+  cal:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',
+  globe:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>',
+  user:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/></svg>',
+  lock:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5F6368" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="flex:none"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
+  menu:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>',
+  search:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5"/></svg>',
+  bag:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 13H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>',
+  eye:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4D4D4D" stroke-width="2" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+  up:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>',
+  tick:(c) => `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>`,
+  arrow:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
+};
+
+/* ===== Phone screen renderers ===== */
+function F(n, inner, cls) {
+  const m = MARKS && n > 0;
+  return `<div class="f ${cls || ""} ${m ? "is-marked" : ""}">${m ? `<span class="badge">${n}</span>` : ""}${inner}</div>`;
+}
+function insta(c) {
+  const bio = c.bio.map(b => { const [t, n] = T(b); return F(n, `<span>${esc(t)}</span>`); }).join("");
+  const [lt, ln] = T(c.link), [jt, jn] = T(c.joined), [ft, fn] = T(c.former), [ct, cn] = T(c.foot);
+  return `<div class="ig">
+  <div class="ig-top">${ic.back}<b>${esc(c.handle)}</b>${ic.bell}${ic.dots}</div>
+  <div class="ig-head"><div class="ring"><img src="${c.av}" alt=""></div>
+    ${F(c.stats.n, `<div class="g"><div><b>${c.stats.p}</b><span>posts</span></div><div><b>${c.stats.f}</b><span>followers</span></div><div><b>${c.stats.g}</b><span>following</span></div></div>`, "ig-stats")}</div>
+  <div class="ig-bio"><b style="font-weight:600">${esc(c.name)}</b><span class="grey">${esc(c.cat)}</span>${bio}
+    ${lt ? F(ln, `${ic.link}<span class="lnk">${esc(lt)}</span>`) : ""}</div>
+  <div class="ig-btns"><div class="follow">Follow</div><div>Message</div><div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21v-1a6 6 0 0 1 12 0v1M19 8v6M16 11h6"/></svg></div></div>
+  ${F(c.hl.n, c.hl.list.map((t, k) => `<div class="h"><div class="c"><img src="${c.hl.img[k]}" alt=""></div>${esc(t)}</div>`).join(""), "ig-hl")}
+  <div class="ig-tabs"><div class="on"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg></div><div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#737373" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M10 9l5 3-5 3z"/></svg></div><div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#737373" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M7 21v-1a5 5 0 0 1 10 0v1"/></svg></div></div>
+  <div class="ig-grid">${c.tiles.map(s => `<img src="${s}" alt="" loading="lazy">`).join("")}</div>
+  <div class="about"><b>About this account</b>
+    ${F(jn, `${ic.cal}<span class="t"><b style="font-weight:600">Date joined</b><span class="grey">${esc(jt)}</span></span>`)}
+    ${F(0, `${ic.globe}<span class="t"><b style="font-weight:600">Account based in</b><span class="grey">${esc(c.based)}</span></span>`)}
+    ${ft ? F(fn, `${ic.user}<span class="t"><b style="font-weight:600">Former usernames</b><span class="grey">${esc(ft)}</span></span>`) : ""}
+  </div>
+  <div class="post"><div class="post-h"><img src="${c.av}" alt=""><b>${esc(c.handle)}</b>${ic.dots}</div>
+    <img class="post-img" src="${c.tiles[0]}" alt="" loading="lazy">
+    <div class="post-a"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-3 4.5 4.5 0 0 1 8 3c0 6-8 11-8 11z"/></svg><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3.5-7.1A9 9 0 0 1 21 12z"/></svg><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M22 3L2 10l8 3 3 8z"/></svg></div>
+    <div class="post-c"><b style="font-weight:600">${esc(c.likes)}</b><span><b style="font-weight:600">${esc(c.handle)}</b> ${esc(c.caption)}</span>${F(cn, `<span>${esc(ct)}</span>`)}</div></div>
+  <div class="ig-nav"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8v10h-6v-6H9v6H3z"/></svg><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5"/></svg><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M12 8v8M8 12h8"/></svg><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M10 9l5 3-5 3z"/></svg><span class="me"></span></div>
+</div>`;
+}
+function web(c) {
+  const [ut, un] = T(c.url), [wt, wn] = T(c.whois), [ot, on] = T(c.off), [tt, tn] = T(c.timer), [st, sn] = T(c.stock), [rt, rn] = T(c.rating), [pt, pn] = T(c.pay);
+  return `<div class="shop">
+  <div class="chrome">${F(un, `${ic.lock}<span class="u">${esc(ut)}</span>`, "url")}<span class="tabs-ic">4</span></div>
+  ${wt ? F(wn, `<span><b>Domain lookup (WHOIS):</b> ${esc(ut)} · ${esc(wt)}</span>`, "whois") : ""}
+  <div class="ann ${c.annDark ? "dark" : ""}">${esc(c.announce)}</div>
+  <div class="shop-h">${ic.menu}<span class="${c.serif ? "logo-serif" : "logo-block"}">${esc(c.logo)}</span><span style="display:flex;gap:16px">${ic.search}${ic.bag}</span></div>
+  ${tt ? F(tn, `<span>${esc(tt)}</span>`, "timer") : ""}
+  <div class="pimg"><img src="${c.img}" alt="${esc(c.product)}"><span class="sale">Sale</span></div>
+  <div class="thumbs"><img src="${c.img}" alt=""><img src="${c.img}" alt="" style="object-position:20% 30%"><img src="${c.img}" alt="" style="object-fit:none;object-position:50% 45%"><img src="${c.img}" alt="" style="transform:scaleX(-1)"></div>
+  <div class="pinfo">
+    <span class="vendor">${esc(c.logo)}</span>
+    <h3>${esc(c.product)}</h3>
+    <div class="price"><s>${c.mrp}</s><b>${c.price}</b><span class="pill">Sale</span>${F(on, `<span>${esc(ot)}</span>`, "off")}</div>
+    <span class="tax"><u>Shipping</u> calculated at checkout. Tax included.</span>
+    ${F(rn, `<span>${esc(rt)}</span>`, "small-f")}
+    ${st ? F(sn, `<span class="t">${esc(st)}</span><span class="sbar"><i></i></span><span class="view">${ic.eye}${esc(c.viewing)}</span>`, "stock") : ""}
+    <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:14px">${esc(c.optLabel)}</span><div class="vals">${c.opts.map(o => `<span>${esc(o)}</span>`).join("")}</div></div>
+    <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:14px">Quantity</span><div class="qty"><span>−</span><span>1</span><span>+</span></div></div>
+    <div class="atc">Add to cart</div><div class="bin">Buy it now</div>
+    ${F(pn, `<span><b>Payment:</b> ${esc(pt)}</span>`, "pay")}
+    <div class="acc">${c.rows.map(r => `<div><div class="hd"><span>${esc(r[0])}</span>${ic.up}</div>${F(r[2], `<span>${esc(r[1])}</span>`)}</div>`).join("")}</div>
+  </div>
+  <div class="foot"><span>© 2026, ${esc(c.logo)}</span><span>Powered by Shopify</span></div>
+</div>`;
+}
+function chat(c) {
+  const av = (s, f) => `<div class="av" style="width:${s}px;height:${s}px;font-size:${f}px;background:${c.av}">${esc(c.initials)}</div>`;
+  const msgs = c.msgs.map(m => {
+    if (m.post) return `<div class="msg me"><div class="shared"><img src="${m.post}" alt="Shared post"><span>${esc(m.cap)}</span></div></div>`;
+    const mk = MARKS && !m.me && m.n > 0;
+    return `<div class="msg ${m.me ? "me" : ""}"><div class="bub ${mk ? "is-marked" : ""}">${mk ? `<span class="badge" style="margin-right:8px;vertical-align:-3px">${m.n}</span>` : ""}${esc(m.t)}</div></div>`;
+  }).join("");
+  return `<div class="dm">
+  <div class="dm-top">${ic.back}${av(32, 12)}<div class="nm"><b>${esc(c.name)}</b><span class="grey" style="font-size:12px">${esc(c.handle)}</span></div>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="14" height="12" rx="3"/><path d="M16 10l6-3v10l-6-3"/></svg></div>
+  <div class="dm-intro">${av(84, 24)}<b style="font-size:18px;margin-top:6px">${esc(c.name)}</b><span class="grey" style="font-size:13px">${esc(c.meta)}</span><span class="vp">View profile</span></div>
+  <span class="when">Today 11:42 PM</span>
+  <div class="msgs">${msgs}</div>
+  <div class="dm-input"><span class="cam"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></span><span class="grey" style="flex:1">Message...</span></div>
+</div>`;
+}
+function upi() {
+  return `<div class="upi">
+  <div class="upi-top">${ic.back}<span>Pay via UPI</span></div>
+  <div class="upi-who"><div class="av" style="width:64px;height:64px;font-size:24px;background:#6D28D9">R</div><span class="grey">Paying</span>
+    ${F(1, `<span><b style="font-size:17px">ROHIT KUMAR</b><br><span class="grey">Banking name</span></span>`)}
+    ${F(2, `<span>rk.traders1987@okaxis</span>`)}</div>
+  <div class="upi-amt"><b>₹399</b><span class="grey">Note: Lunaa Jewels order</span></div>
+  <div class="upi-note">You were chatting with <b>lunaa.jewels</b>. The name above is a different person.</div>
+  <div class="upi-pay">Pay ₹399</div>
+</div>`;
+}
+
+/* ===== Saving ===== */
+function summarize(round, ans) {
+  const ok = a => a.choice === (a.real ? "real" : "scam");
+  const scams = ans.filter(a => !a.real), reals = ans.filter(a => a.real);
+  const r = { round, score: ans.filter(ok).length, total: ans.length, caught: scams.filter(a => a.choice === "scam").length, scamTotal: scams.length,
+    falseFlag: reals.filter(a => a.choice === "scam").length, realTotal: reals.length, sureRight: ans.filter(a => a.sure && ok(a)).length,
+    answers: ans.map(a => ({ id:a.id, real:a.real, choice:a.choice, sure:a.sure, correct:ok(a) })) };
+  r.line = `STORE-${round.toUpperCase()} | ${P.code || "NOCODE"} | ${r.score}/${r.total} | caught ${r.caught}/${r.scamTotal} | falseflag ${r.falseFlag}/${r.realTotal} | sure+right ${r.sureRight} | ` + ans.map(a => (a.choice === "real" ? "R" : "S") + (a.sure ? "!" : "?")).join(" ");
+  return r;
+}
+function send(r, statusId) {
+  const st = () => document.getElementById(statusId);
+  if (!SHEET_URL) { r.saved = "off"; return; }
+  if (r.saved === "yes") return;
+  fetch(SHEET_URL, { method:"POST", mode:"no-cors", headers:{ "Content-Type":"text/plain;charset=utf-8" },
+    body: JSON.stringify(Object.assign({ session:P.session, code:P.code || "NOCODE" }, r)) })
+    .then(() => { r.saved = "yes"; persist(); if (st()) st().textContent = "Your result was saved."; })
+    .catch(() => { r.saved = "no"; persist(); if (st()) st().textContent = "Couldn't save automatically. Copy your result code and send it to the team."; });
+}
+
+/* ===== Screens ===== */
+function homeScreen() {
+  const step = nextStep(), latest = P.post || P.pre, score = pct(latest);
+  const stops = [
+    { k:"pre", t:"Before quiz", d: P.pre ? `${P.pre.score}/${P.pre.total} correct` : "6 stores · 4 min" },
+    { k:"lesson", t:"Quick lesson", d: P.lesson ? "Done" : "5 short lessons" },
+    { k:"checklist", t:"Shopping checklist", d: P.checklist ? "Done" : "7 checks" },
+    { k:"post", t:"After quiz", d: P.post ? `${P.post.score}/${P.post.total} correct` : "6 new stores" }
+  ];
+  const doneCount = [P.pre, P.lesson, P.checklist, P.post].filter(Boolean).length;
+  const progress = Math.min(doneCount, 3) / 3;
+  const ctaLabel = { pre:"Start the before quiz", lesson:"Continue to the lesson", checklist:"Continue to the checklist", post:"Take the after quiz", done:"See my results" }[step];
+  const needSignup = step === "pre" && (!P.consent);
+  const zone = score == null ? null : score >= 83 ? "Hard to fool" : score >= 50 ? "Getting there" : "Easy target";
+  const delta = P.pre && P.post ? pct(P.post) - pct(P.pre) : null;
+  const pickedCls = (k) => !quick ? "" : k === "a" ? "right" : (k === quick ? "wrong" : "");
+
+  app.innerHTML = `<div class="stack enter">
+  <section class="hero">
+    <div class="hero-copy">
+      <h1>Would you spot a fake store before you pay?</h1>
+      <p class="lede">Fake shops on Instagram, lookalike websites and DM sellers are built to look exactly like the real thing. In about 15 minutes you'll test your instincts, learn what scammers rely on, and test yourself again.</p>
+    </div>
+    <div class="signup" id="signup">
+      ${needSignup ? `
+        <h3>Before you start</h3>
+        <label class="small" for="code" style="font-weight:700">Make up a secret code</label>
+        <input id="code" type="text" maxlength="12" autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="e.g. BLUE27" value="${esc(P.code)}">
+        <p class="small muted">It links your before and after scores without your name. Letters and numbers only.</p>
+        <label class="consent" for="consent"><input id="consent" type="checkbox" ${P.consent ? "checked" : ""}><span>I agree to take part. My answers are saved anonymously (no name or email), used only for a class project, and I can stop at any time.</span></label>
+        <button type="button" class="cta tape" data-a="go" ${P.consent ? "" : "disabled"}>${ctaLabel}${ic.arrow}</button>`
+      : `
+        <h3>${step === "done" ? "You've finished the journey" : "Pick up where you left off"}</h3>
+        <div class="who"><span>Your code</span><b>${esc(P.code || "NOCODE")}</b></div>
+        <button type="button" class="cta tape" data-a="go">${ctaLabel}${ic.arrow}</button>
+        <button type="button" class="linkbtn" data-a="reset">Start over with a new code</button>`}
+    </div>
+  </section>
+
+  <section class="track" aria-labelledby="trk">
+    <div class="track-head"><h2 id="trk" style="font-size:24px">Your progress</h2><span class="id">${doneCount} of 4 steps done</span></div>
+    <div class="stops" role="list" style="--p:${progress}">
+      <span class="fill" aria-hidden="true"></span>
+      ${stops.map(s => { const done = s.k === "pre" ? P.pre : s.k === "lesson" ? P.lesson : s.k === "checklist" ? P.checklist : P.post;
+        const cls = done ? "done" : (s.k === step ? "next" : "");
+        return `<div role="listitem" class="stop ${cls}"><span class="dot">${done ? ic.tick("#fff") : ""}</span><div><b>${s.t}</b><span>${cls === "next" ? "Up next · " : ""}${s.d}</span></div></div>`; }).join("")}
+    </div>
+  </section>
+
+  <section class="score-block" aria-labelledby="sc">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <h2 id="sc" style="font-size:24px">Safety score</h2>
+      ${score == null ? `<p class="muted">Take the before quiz to get your first score.</p>`
+        : `<div class="score-num"><b>${score}</b><span>/ 100</span></div><p><b>${zone}.</b> <span class="muted">Based on your ${P.post ? "after" : "before"} quiz.</span>${delta != null ? ` <span class="delta" style="color:${delta >= 0 ? "var(--real)" : "var(--scam)"}">${delta >= 0 ? "+" : ""}${delta} since the before quiz.</span>` : ""}</p>`}
+    </div>
+    <div class="meter" aria-hidden="true">
+      <div class="meter-bar"><i></i><i></i><i></i>${score == null ? "" : `<span class="pin" style="left:${Math.max(1, Math.min(99, score))}%"></span>`}</div>
+      <div class="meter-labels"><span>Easy target</span><span>Getting there</span><span>Hard to fool</span></div>
+    </div>
+  </section>
+
+  <section class="two-col">
+    <div class="objectives">
+      <h2 style="font-size:24px">By the end, you'll be able to</h2>
+      <ul>
+        <li>${ic.tick("var(--ink)")}<span>Tell a real small seller from a scam on Instagram, a website or in DMs.</span></li>
+        <li>${ic.tick("var(--ink)")}<span>Name the red flags scammers rely on: impossible prices, fake urgency, prepaid only, new or renamed accounts, fake reviews, missing business details.</span></li>
+        <li>${ic.tick("var(--ink)")}<span>Check any store in about 2 minutes with free tools on your phone.</span></li>
+        <li>${ic.tick("var(--ink)")}<span>Pay safely: read the UPI banking name and prefer cash on delivery or a payment link.</span></li>
+      </ul>
+    </div>
+    <div class="challenge">
+      <h2 style="font-size:24px">Quick challenge</h2>
+      <p>You found handmade blue pottery on Instagram. The bio links to three sites. Which one is most likely the real store?</p>
+      <div class="links">
+        <button type="button" data-q="a" class="${pickedCls("a")}">bluepotteryjaipur.in</button>
+        <button type="button" data-q="b" class="${pickedCls("b")}">bluepottery-jaipur-outlet.shop</button>
+        <button type="button" data-q="c" class="${pickedCls("c")}">bluepotteryjaipur.in.sale-today.xyz</button>
+      </div>
+      ${quick ? `<div class="feedback" role="status">${quick === "a" ? "<b>Right.</b> " : "<b>Not quite.</b> "}The first one is a plain brand-name domain. "-outlet.shop" is a cheap throwaway lookalike, and in the last one the real site is <i>sale-today.xyz</i>: everything before it is just decoration. Always read a web address from the right.</div>` : ""}
+    </div>
+  </section>
+</div>`;
+
+  const code = document.getElementById("code");
+  if (code) code.addEventListener("input", e => { P.code = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 12); if (e.target.value !== P.code) e.target.value = P.code; persist(); });
+  const cons = document.getElementById("consent");
+  if (cons) cons.addEventListener("change", e => { P.consent = e.target.checked; persist(); app.querySelector('[data-a="go"]').disabled = !P.consent; });
+}
+
+function quizScreen() {
+  const total = deck().length;
+  app.innerHTML = `<div class="stack">
+  <div class="prog"><div class="prog-row"><span>Store ${Q.i + 1} of ${total}</span><span>${Q.round === "pre" ? "Before quiz" : "After quiz"}</span></div><div class="bar" aria-hidden="true"><i style="transform:scaleX(${Q.i / total})"></i></div></div>
+  <div class="layout enter">
+    <div class="phone-col"><div class="phone"><div id="screen" class="screen" tabindex="0" aria-label="Store preview, scrollable"></div></div><span class="small muted">Scroll inside the phone to see the whole page</span></div>
+    <div class="side" id="side"></div>
+  </div></div>`;
+  renderPhone(false); renderPanel();
+}
+function renderPhone(keep) {
+  const scr = document.getElementById("screen"); if (!scr) return;
+  const y = keep ? scr.scrollTop : 0, c = card();
+  MARKS = Q.revealed;
+  scr.className = "screen" + (c.real ? " is-real" : "");
+  scr.innerHTML = c.type === "insta" ? insta(c) : c.type === "web" ? web(c) : chat(c);
+  scr.scrollTop = y;
+}
+function renderPanel() {
+  const side = document.getElementById("side"); if (!side) return;
+  const c = card(), t = TYPE[c.type], pre = Q.round === "pre", last = Q.i === deck().length - 1;
+  const answered = Q.choice !== null && Q.sure !== null;
+  let label = last ? (pre ? "Finish the before quiz" : "See my results") : "Next store";
+  if (!pre && !Q.revealed) label = "Check my answer";
+  const disabled = !Q.revealed && !answered;
+  let html;
+  if (!Q.revealed) {
+    html = `<h2>${t.q}</h2>
+    <div class="two"><button type="button" class="opt big real" data-a="real" aria-pressed="${Q.choice === "real"}">${t.real}</button><button type="button" class="opt big scam" data-a="scam" aria-pressed="${Q.choice === "scam"}">${t.scam}</button></div>
+    <span style="font-weight:700">How sure are you?</span>
+    <div class="two"><button type="button" class="opt" data-a="sure" aria-pressed="${Q.sure === true}">Pretty sure</button><button type="button" class="opt" data-a="guess" aria-pressed="${Q.sure === false}">Just guessing</button></div>
+    ${pre ? `<p class="small muted">Answers stay hidden in this round. You'll learn what to look for next.</p>` : ""}`;
+  } else {
+    const right = Q.choice === (c.real ? "real" : "scam"), k = c.real ? "real" : "scam";
+    html = `<div class="banner ${k} enter"><span style="font-weight:700">${right ? "You got it." : "Not this time."}</span><b>${c.real ? t.vr : t.vs}</b><span class="small">${esc(c.summary)}</span></div>
+    <h3>${c.real ? "Signs it's legit" : "Red flags"}, marked on the phone</h3>
+    <div class="flags">${c.flags.map((f, n) => `<div class="flag"><span class="n ${k}">${n + 1}</span><div><b>${esc(f[0])}</b><span class="d">${esc(f[1])}</span></div></div>`).join("")}</div>`;
+  }
+  side.innerHTML = html + `<button type="button" class="cta" data-a="next" ${disabled ? "disabled" : ""}>${label}</button>`;
+}
+
+function preDoneScreen() {
+  const r = P.pre;
+  app.innerHTML = `<div class="center enter">
+  <h1>Before quiz done: ${r.score} of ${r.total}</h1>
+  <p class="lede">We're keeping the answers to ourselves for now. Next, a 5-part lesson on how fake stores work and how to check one, then a short checklist. After that you'll get 6 new stores.</p>
+  <div class="panel"><span style="font-weight:700">Your result code</span><div class="code" id="line">${esc(r.line)}</div><p class="small muted" id="save-status" role="status">${SHEET_URL ? "Saving your result…" : "Keep this code. It's also saved on this device."}</p></div>
+  <div class="row"><button type="button" class="cta tape" data-a="lesson">Start the lesson${ic.arrow}</button><button type="button" class="cta ghost" data-a="home">Back to dashboard</button></div>
+</div>`;
+  send(r, "save-status");
+}
+
+function lessonScreen() {
+  const L = LESSONS[lessonIdx], k = L.real ? "real" : "scam", last = lessonIdx === LESSONS.length - 1;
+  const pips = LESSONS.map((_, i) => `<i class="${i <= lessonIdx ? "on" : ""}"></i>`).join("");
+  let body;
+  if (L.steps) {
+    body = `<div class="text" style="flex-basis:100%">
+      <ol class="steps">
+        <li><div class="how"><span class="n tape" style="width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;flex:none">1</span><div><b style="font-size:18px;display:block">Check the account's history</b><span class="muted">On the Instagram profile, tap ⋯ then <i>About this account</i>. Look at the join date and former usernames.</span></div></div>
+          <div class="mini"><b>About this account</b><div class="r"><span>Date joined</span><span class="hit">October 2026</span></div><div class="r"><span>Former usernames</span><span class="hit">4</span></div></div></li>
+        <li><div class="how"><span class="n tape" style="width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;flex:none">2</span><div><b style="font-size:18px;display:block">Reverse-search a product photo</b><span class="muted">Long-press the photo, choose <i>Search with Google Lens</i>. The same photo on dozens of other stores means it was copied.</span></div></div>
+          <div class="mini"><img src="${I("hoodie")}" alt=""><b>Visual matches · 40+ sites</b><div class="lens"><img src="${I("hoodie")}" alt=""><img src="${I("hoodie")}" alt="" style="object-position:30% 20%"><img src="${I("hoodie")}" alt="" style="transform:scaleX(-1)"><img src="${I("hoodie")}" alt="" style="object-position:70% 60%"></div></div></li>
+        <li><div class="how"><span class="n tape" style="width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;flex:none">3</span><div><b style="font-size:18px;display:block">Look up the website's age</b><span class="muted">Search the domain on any WHOIS lookup site. A store that's days or weeks old, selling at 90% off, is a scam.</span></div></div>
+          <div class="mini"><b>WHOIS · urbanthreadz-sale.shop</b><div class="r"><span>Created</span><span class="hit">9 days ago</span></div><div class="r"><span>Registrant</span><span>Redacted for privacy</span></div></div></li>
+        <li><div class="how"><span class="n tape" style="width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;flex:none">4</span><div><b style="font-size:18px;display:block">Verify the GST number</b><span class="muted">Copy the GSTIN from the website and search it on the GST portal (services.gst.gov.in). The legal name should match the store.</span></div></div>
+          <div class="mini"><b>GSTIN search result</b><div class="r"><span>Status</span><span class="ok">Active</span></div><div class="r"><span>Legal name</span><span>Ghar Kitchenware LLP</span></div></div></li>
+      </ol>
+      <p class="takeaway">${esc(L.take)}</p></div>`;
+  } else {
+    MARKS = true;
+    body = `<div class="phone-col"><div class="phone"><div class="screen short ${L.real ? "is-real" : ""}" tabindex="0" aria-label="Example, scrollable">${L.phone()}</div></div><span class="small muted">Scroll the phone to find each number</span></div>
+    <div class="text">
+      <div class="flags">${L.points.map((p, i) => `<div class="flag"><span class="n ${k}">${i + 1}</span><div><b>${esc(p[0])}</b><span class="d">${esc(p[1])}</span></div></div>`).join("")}</div>
+      <p class="takeaway">${esc(L.take)}</p>
+    </div>`;
+    MARKS = false;
+  }
+  app.innerHTML = `<div class="stack enter">
+  <div class="lesson-head"><div class="pips" aria-label="Lesson ${lessonIdx + 1} of ${LESSONS.length}">${pips}</div><span class="small muted">Lesson ${lessonIdx + 1} of ${LESSONS.length}</span></div>
+  <div style="display:flex;flex-direction:column;gap:10px;max-width:760px"><h1 style="font-size:clamp(30px,5.6vw,46px)">${esc(L.title)}</h1><p class="lede">${esc(L.intro)}</p></div>
+  <div class="lesson">${body}</div>
+  <div class="row" style="max-width:640px">${lessonIdx > 0 ? `<button type="button" class="cta ghost" data-a="lprev">Previous</button>` : `<button type="button" class="cta ghost" data-a="home">Dashboard</button>`}
+    <button type="button" class="cta ${last ? "tape" : ""}" data-a="lnext">${last ? "Go to the checklist" : "Next lesson"}${ic.arrow}</button></div>
+</div>`;
+}
+
+function checklistScreen() {
+  const n = P.checks.filter(Boolean).length, all = n === CHECKS.length;
+  app.innerHTML = `<div class="center enter">
+  <h1>Your online shopping checklist</h1>
+  <p class="lede">Before you pay a store you haven't used before, run through these. Tick each one you'll do from now on.</p>
+  <ul class="checks">${CHECKS.map((c, i) => `<li><button type="button" data-c="${i}" aria-pressed="${!!P.checks[i]}"><span class="box">${ic.tick("var(--btn-ink)")}</span><span><b>${esc(c[0])}</b><span class="d">${esc(c[1])}</span></span></button></li>`).join("")}</ul>
+  <p class="small muted">Scammed or unsure? Report it at cybercrime.gov.in or call 1930.</p>
+  <div class="row"><button type="button" class="cta tape" data-a="post" ${all ? "" : "disabled"}>${all ? "Take the after quiz" : `Tick all 7 to continue (${n}/7)`}${all ? ic.arrow : ""}</button></div>
+</div>`;
+}
+
+function finalScreen() {
+  const a = P.pre, b = P.post, sa = pct(a), sb = pct(b), d = sb - sa;
+  const zone = sb >= 83 ? "Hard to fool" : sb >= 50 ? "Getting there" : "Easy target";
+  app.innerHTML = `<div class="center enter">
+  <h1>${d > 0 ? `You improved by ${d} points` : d === 0 ? "Same score, sharper eye" : "Worth another look"}</h1>
+  <p class="lede">Your safety score is now <b style="color:var(--ink)">${sb} / 100: ${zone}.</b> ${d > 0 ? "You caught more of the tricks scammers rely on." : "Go back over the lesson and the red flags you missed."}</p>
+  <div class="compare">
+    <div><span class="muted">Before</span><b>${a.score}/${a.total}</b><dl><dt>Scams caught</dt><dd>${a.caught}/${a.scamTotal}</dd><dt>Real stores called scams</dt><dd>${a.falseFlag}/${a.realTotal}</dd><dt>Sure and right</dt><dd>${a.sureRight}</dd></dl></div>
+    <div><span class="muted">After</span><b>${b.score}/${b.total}</b><dl><dt>Scams caught</dt><dd>${b.caught}/${b.scamTotal}</dd><dt>Real stores called scams</dt><dd>${b.falseFlag}/${b.realTotal}</dd><dt>Sure and right</dt><dd>${b.sureRight}</dd></dl></div>
+  </div>
+  <div class="panel"><span style="font-weight:700">Your result codes</span><div class="code" id="line">${esc(a.line)}\n${esc(b.line)}</div>
+    <p class="small muted" id="save-status" role="status">${SHEET_URL ? "Saving your result…" : "Keep these codes and send them to the team running the session."}</p>
+    <button type="button" class="cta ghost" data-a="copy">Copy codes</button></div>
+  <div class="row"><button type="button" class="cta" data-a="home">Back to dashboard</button></div>
+</div>`;
+  send(b, "save-status");
+}
+
+function render() {
+  ({ home: homeScreen, quiz: quizScreen, predone: preDoneScreen, lesson: lessonScreen, checklist: checklistScreen, final: finalScreen })[view]();
+}
+function startQuiz(round) { Object.assign(Q, { round, i:0, choice:null, sure:null, revealed:false, ans:[] }); view = "quiz"; render(); toTop(); }
+function go() {
+  const s = nextStep();
+  if (s === "pre" || s === "post") return startQuiz(s);
+  if (s === "lesson") { lessonIdx = 0; view = "lesson"; }
+  else if (s === "checklist") view = "checklist";
+  else view = "final";
+  render(); toTop();
+}
+
+document.addEventListener("click", async (e) => {
+  const q = e.target.closest("[data-q]");
+  if (q) { quick = q.dataset.q; homeScreen(); app.firstElementChild.classList.remove("enter"); const f = app.querySelector(".fill"); if (f) f.style.animation = "none"; return; }
+  const c = e.target.closest("[data-c]");
+  if (c) { const i = +c.dataset.c; P.checks[i] = !P.checks[i]; persist(); checklistScreen(); const btn = app.querySelector(`[data-c="${i}"]`); if (btn) btn.focus(); return; }
+  const b = e.target.closest("[data-a]"); if (!b || b.disabled) return;
+  const a = b.dataset.a;
+  if (a === "home") { view = "home"; render(); toTop(); return; }
+  if (a === "go") { if (nextStep() === "pre" && !P.consent) return; go(); return; }
+  if (a === "reset") { const keep = P.consent; P = fresh(); P.consent = false; persist(); quick = null; view = "home"; render(); toTop(); return; }
+  if (a === "real" || a === "scam") { Q.choice = a; renderPanel(); return; }
+  if (a === "sure" || a === "guess") { Q.sure = a === "sure"; renderPanel(); return; }
+  if (a === "next") {
+    const cd = card();
+    if (!Q.revealed) {
+      Q.ans.push({ id:cd.id, real:cd.real, choice:Q.choice, sure:Q.sure });
+      if (Q.round === "post") { Q.revealed = true; renderPhone(true); renderPanel(); return; }
+    }
+    Q.revealed = false; Q.choice = null; Q.sure = null;
+    if (Q.i < deck().length - 1) { Q.i++; quizScreen(); toTop(); return; }
+    const r = summarize(Q.round, Q.ans);
+    if (Q.round === "pre") { P.pre = r; persist(); view = "predone"; } else { P.post = r; persist(); view = "final"; }
+    render(); toTop(); return;
+  }
+  if (a === "lesson") { lessonIdx = 0; view = "lesson"; render(); toTop(); return; }
+  if (a === "lprev") { lessonIdx = Math.max(0, lessonIdx - 1); render(); toTop(); return; }
+  if (a === "lnext") {
+    if (lessonIdx < LESSONS.length - 1) { lessonIdx++; render(); toTop(); return; }
+    P.lesson = true; persist(); view = "checklist"; render(); toTop(); return;
+  }
+  if (a === "post") { if (P.checks.filter(Boolean).length < CHECKS.length) return; P.checklist = true; persist(); startQuiz("post"); return; }
+  if (a === "copy") {
+    const txt = document.getElementById("line").textContent;
+    try { await navigator.clipboard.writeText(txt); b.textContent = "Copied"; }
+    catch (err) { const r = document.createRange(); r.selectNodeContents(document.getElementById("line")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = "Selected, now copy it"; }
+  }
+});
+
+render();
+</script>
+
+</body>
+</html>
